@@ -83,7 +83,7 @@ def compare_tables(expected_df, actual_df, column_list, sort_by=None):
     if sort_by is None:
         sort_by = column_list
     
-    column_widths = get_column_widths(df1, df2, column_list)
+    column_widths = get_column_widths(expected_df, actual_df, column_list)
     expected = convert_df_to_table(expected_df.sort_values(by=sort_by), column_list, column_widths, delimiter='|')
     actual = convert_df_to_table(actual_df.sort_values(by=sort_by), column_list, column_widths, delimiter='|')
     diff = difflib.ndiff(expected, actual)

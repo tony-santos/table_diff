@@ -99,41 +99,50 @@ def compare_tables(expected_df, actual_df, column_list, sort_by=None):
 
 if __name__ == "__main__":
     # column_list = ['date', 'calories', 'sleep hours', 'gym']
-    column_list = ['gym', 'date', 'calories', 'sleep_hours']
-    df1 = pd.DataFrame()
-    df1['date'] = ['2016-04-01', '2016-04-02', '2016-04-03', '2016-04-02']
-    df1['calories'] = [2200, 2100, 1500, 2100]
-    df1['sleep_hours'] = [2200, 2100, 1500, 2200]
-    df1['gym'] = [True, False, False, True]
+    # column_list = ['gym', 'date', 'calories', 'sleep_hours']
+    # df1 = pd.DataFrame()
+    # df1['date'] = ['2016-04-01', '2016-04-02', '2016-04-03', '2016-04-02']
+    # df1['calories'] = [2200, 2100, 1500, 2100]
+    # df1['sleep_hours'] = [2200, 2100, 1500, 2200]
+    # df1['gym'] = [True, False, False, True]
 
-    df2 = pd.DataFrame()
-    df2['date'] = ['2016-04-01', '2016-04-02', '2016-04-03', '2016-04-02']
-    df2['calories'] = [2200, 2200, 1500, 1500]
-    df2['sleep_hours'] = [2200, 2100, 1600, 1500]
-    df2['gym'] = [True, True, False, True]
+    # df2 = pd.DataFrame()
+    # df2['date'] = ['2016-04-01', '2016-04-02', '2016-04-03', '2016-04-02']
+    # df2['calories'] = [2200, 2200, 1500, 1500]
+    # df2['sleep_hours'] = [2200, 2100, 1600, 1500]
+    # df2['gym'] = [True, True, False, True]
 
-    df3 = pd.DataFrame()
-    df3['date'] = ['2016-04-01', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03']
-    df3['calories'] = [2200, 2100, 1500, 2100, 1500, 2100, 1500, 2100, 1500, 2100, 1500, 2100, 1500]
-    df3['sleep_hours'] = [2200, 2100, 1500, 2200, 2100, 2200, 2100, 2200, 2100, 2200, 2100, 2200, 2100]
-    df3['gym'] = [True, False, False, True, False, True, False, True, False, True, False, True, False]
+    # df3 = pd.DataFrame()
+    # df3['date'] = ['2016-04-01', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03']
+    # df3['calories'] = [2200, 2100, 1500, 2100, 1500, 2100, 1500, 2100, 1500, 2100, 1500, 2100, 1500]
+    # df3['sleep_hours'] = [2200, 2100, 1500, 2200, 2100, 2200, 2100, 2200, 2100, 2200, 2100, 2200, 2100]
+    # df3['gym'] = [True, False, False, True, False, True, False, True, False, True, False, True, False]
 
-    df4 = pd.DataFrame()
-    df4['date'] = ['2016-04-01', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03']
-    df4['calories'] = [2200, 2100, 1500, 2100, 1500, 2100, 1500, 2100, 1500, 2100, 1500, 2100, 1500]
-    df4['sleep_hours'] = [2200, 2100, 1500, 2200, 2100, 2200, 2100, 2200, 2100, 2200, 2100, 2200, 2100]
-    df4['gym'] = [True, False, False, True, False, True, False, True, False, True, False, True, False]
+    # df4 = pd.DataFrame()
+    # df4['date'] = ['2016-04-01', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03']
+    # df4['calories'] = [2200, 2100, 1500, 2100, 1500, 2100, 1500, 2100, 1500, 2100, 1500, 2100, 1500]
+    # df4['sleep_hours'] = [2200, 2100, 1500, 2200, 2100, 2200, 2100, 2200, 2100, 2200, 2100, 2200, 2100]
+    # df4['gym'] = [True, False, False, True, False, True, False, True, False, True, False, True, False]
 
-    df5 = pd.DataFrame()
-    df5['date'] = ['2016-04-01', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02']
-    df5['calories'] = [2200, 2100, 1500, 2100, 1500, 2100, 1500, 2100, 1500, 2100, 1500, 2100]
-    df5['sleep_hours'] = [2200, 2100, 1500, 2200, 2100, 2200, 2100, 2200, 2100, 2200, 2100, 2200]
-    df5['gym'] = [True, False, False, True, False, True, False, True, False, True, False, True]
+    # df5 = pd.DataFrame()
+    # df5['date'] = ['2016-04-01', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02']
+    # df5['calories'] = [2200, 2100, 1500, 2100, 1500, 2100, 1500, 2100, 1500, 2100, 1500, 2100]
+    # df5['sleep_hours'] = [2200, 2100, 1500, 2200, 2100, 2200, 2100, 2200, 2100, 2200, 2100, 2200]
+    # df5['gym'] = [True, False, False, True, False, True, False, True, False, True, False, True]
 
-    compare_tables(df1, df2, column_list, ['date'])
-    compare_tables(df1, df1, column_list, ['sleep_hours', 'calories' ])
-
-    compare_tables(df3, df4, column_list, ['date', 'gym'])
-    compare_tables(df3, df5, column_list, ['date', 'gym'])
-    compare_tables(df5, df3, column_list, ['date', 'gym'])
+    # compare_tables(df1, df2, column_list, ['date'])
     # compare_tables(df1, df1, column_list, ['sleep_hours', 'calories' ])
+
+    # compare_tables(df3, df4, column_list, ['date', 'gym'])
+    # compare_tables(df3, df5, column_list, ['date', 'gym'])
+    # compare_tables(df5, df3, column_list, ['date', 'gym'])
+    # # compare_tables(df1, df1, column_list, ['sleep_hours', 'calories' ])
+
+    df8 = pd.DataFrame()
+    df8['date_column'] = ['2016-04-01']
+
+    df9 = pd.DataFrame()
+    df9['date_column'] = ['2016-04-02']
+
+    compare_tables(df8, df9, ['date_column'], ['date_column'])
+    

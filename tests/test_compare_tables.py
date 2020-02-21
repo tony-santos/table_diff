@@ -17,6 +17,14 @@ def df1by1():
     return df
 
 @pytest.fixture
+def df1by1a():
+
+    df = pd.DataFrame()
+    df['date_column'] = ['2016-04-02']
+
+    return df
+
+@pytest.fixture
 def df2by1():
 
     df = pd.DataFrame()
@@ -61,9 +69,21 @@ def column_list():
 def expected_output1by1_match():
     return '\nexpected:\n  | date_column |\n  | 2016-04-01  |\n\nactual:\n  | date_column |\n  | 2016-04-01  |\n\ntables match\n'
 
-# def test_compare_tables_small_match(df1by1, expected_output1by1, pytest.capsys):
-#     captured = capsys.readouterr()
-#     assert(expected_output1by1 == table_diff.compare_tables(df1by1, df1by1, ['date_column']))
+@pytest.fixture
+def expected_output1by1_nomatch():
+    output = '\nexpected:\n' + \
+             '  | date_column |\n' +\
+             '  | 2016-04-01  |\n' +\
+             '\nactual:\n' +\
+             '  | date_column |\n' +\
+             '  | 2016-04-02  |\n' +\
+             '\nexpected vs actual:\n' +\
+             '  | date_column |\n' +\
+             '- | 2016-04-01  |\n' +\
+             '?            ^\n' +\
+             '+ | 2016-04-02  |\n' +\
+             '?            ^\n'
+    return output
 
 def test_compare_tables_small_match(df1by1, expected_output1by1_match, capsys):
     # compare_tables does not return anything and the results are sent stdout
@@ -71,3 +91,13 @@ def test_compare_tables_small_match(df1by1, expected_output1by1_match, capsys):
     table_diff.compare_tables(df1by1, df1by1, ['date_column'])
     captured = capsys.readouterr()
     assert(expected_output1by1_match == captured.out)
+
+def test_compare_tables_small_nomatch(df1by1, df1by1a, expected_output1by1_nomatch, capsys):
+    # compare_tables does not return anything and the results are sent stdout
+    # use capsys feature to capture and access stdout
+    with capsys.disabled():
+        print(expected_output1by1_nomatch)
+        print("\n\n\n")
+    table_diff.compare_tables(df1by1, df1by1a, ['date_column'])
+    captured = capsys.readouterr()
+    assert(expected_output1by1_nomatch == captured.out)

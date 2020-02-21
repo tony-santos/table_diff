@@ -24,14 +24,14 @@ def column_list():
     return ['date_column', 'float_column', 'integer_column', 'boolean_column']
 
 def test_get_longest_entry_date(input_df):
-    assert(table_diff.get_longest_entry(10 == input_df['date_column']))
+    assert(10 == table_diff.get_longest_entry(input_df['date_column']))
 
 def test_get_longest_entry_integer(input_df):
-    assert(table_diff.get_longest_entry(5 == input_df['integer_column']))
+    assert(5 == table_diff.get_longest_entry(input_df['integer_column']))
 
 def test_get_longest_entry_float(input_df):
     print(f"float_column: {input_df['float_column']}")
-    assert(table_diff.get_longest_entry(9 == input_df['float_column']))
+    assert(10 == table_diff.get_longest_entry(input_df['float_column']))
 
 def test_get_longest_entry_boolean(input_df):
-    assert(table_diff.get_longest_entry(5 == input_df['boolean_column']))
+    assert(5 == table_diff.get_longest_entry(input_df['boolean_column']))

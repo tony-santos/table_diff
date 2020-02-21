@@ -66,25 +66,8 @@ def expected_output1by1_match():
 #     assert(expected_output1by1 == table_diff.compare_tables(df1by1, df1by1, ['date_column']))
 
 def test_compare_tables_small_match(df1by1, expected_output1by1_match, capsys):
+    # compare_tables does not return anything and the results are sent stdout
+    # use capsys feature to capture and access stdout
     table_diff.compare_tables(df1by1, df1by1, ['date_column'])
     captured = capsys.readouterr()
     assert(expected_output1by1_match == captured.out)
-
-# def test_convert_df_to_table_date_two_rows(df2by1):
-#     assert(['| date_column |\n', '| 2016-04-01  |\n', '| 2016-06-21  |\n'] == table_diff.convert_df_to_table(df2by1, ['date_column'], [11]))
-
-# def test_convert_df_to_table_two_cols_one_row(df1by2):
-#     assert(['| date_column | float_column |\n', '| 2016-04-01  | 2200.0       |\n'] == table_diff.convert_df_to_table(df1by2, ['date_column', 'float_column'], [11, 12]))
-
-# def test_convert_df_to_table_two_cols_two_rows(df2by2):
-#     assert(['| date_column | float_column |\n', '| 2016-04-01  | 2200.0       |\n', '| 2016-06-21  | 2100.01      |\n'] == table_diff.convert_df_to_table(df2by2, ['date_column', 'float_column'], [11, 12]))
-
-# def test_convert_df_to_table_integer(input_df):
-#     assert(5 == table_diff.convert_df_to_table(input_df['integer_column']))
-
-# def test_convert_df_to_table_float(input_df):
-#     print(f"float_column: {input_df['float_column']}")
-#     assert(10 == table_diff.convert_df_to_table(input_df['float_column']))
-
-# def test_convert_df_to_table_boolean(input_df):
-#     assert(5 == table_diff.convert_df_to_table(input_df['boolean_column']))

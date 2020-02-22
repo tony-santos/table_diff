@@ -54,6 +54,20 @@ def df4():
     return df
 
 @pytest.fixture
+def df_wide():
+
+    df = pd.DataFrame()
+    df['date_column'] = ['2016-04-01']
+    df['float_column'] = [2200.0]
+    df['integer_column'] = [2200]
+    df['boolean_column'] = [True]
+    df['float_column2'] = [333.3]
+    df['integer_column2'] = [100]
+    df['boolean_column2'] = [True]
+
+    return df
+
+@pytest.fixture
 def column_list():
     return ['date_column', 'float_column', 'integer_column', 'boolean_column']
 
@@ -68,6 +82,9 @@ def test_convert_df_to_table_two_cols_one_row(df1by2):
 
 def test_convert_df_to_table_two_cols_two_rows(df2by2):
     assert(['| date_column | float_column |\n', '| 2016-04-01  | 2200.0       |\n', '| 2016-06-21  | 2100.01      |\n'] == table_diff.convert_df_to_table(df2by2, ['date_column', 'float_column'], [11, 12]))
+
+def test_convert_df_to_table_subset_cols(df_wide):
+    assert(['| date_column | integer_column |\n', '| 2016-04-01  | 2200         |\n'] == table_diff.convert_df_to_table(df_wide, ['date_column', 'integer_column'], [11, 12]))
 
 # def test_convert_df_to_table_integer(input_df):
 #     assert(5 == table_diff.convert_df_to_table(input_df['integer_column']))

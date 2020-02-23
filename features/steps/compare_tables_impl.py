@@ -37,11 +37,11 @@ def compared(context):
 
 @then(u'tables match')
 def compare_tables(context):
-    assert(True == context.tables_match)
+    assert context.tables_match == True
 
 @then(u'tables do not match')
 def compare_tables(context):
-    assert(False == context.tables_match)
+    assert context.tables_match == False
 
 # @then(u'a {result} message is generated')
 # def check_message(context, result):

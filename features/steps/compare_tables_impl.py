@@ -33,14 +33,16 @@ def actual(context):
 
 @when(u'the tables are compared')
 def compared(context):
-    td.compare_tables(context.expected, context.actual, context.column_list, context.column_list)
+    context.tables_match = td.compare_tables(context.expected, context.actual, context.column_list, context.column_list)
 
-    pass
+@then(u'tables match')
+def compare_tables(context):
+    assert(True == context.tables_match)
 
-@then(u'compare_tables returns {result}')
-def compare_tables(context, result):
-    pass
+@then(u'tables do not match')
+def compare_tables(context):
+    assert(False == context.tables_match)
 
-@then(u'a {result} message is generated')
-def check_message(context, result):
-    pass
+# @then(u'a {result} message is generated')
+# def check_message(context, result):
+#     pass

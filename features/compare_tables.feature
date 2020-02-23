@@ -13,6 +13,19 @@ And an actual table
 
 When the tables are compared
 
-Then compare_tables returns True
+Then tables match
 
-And a Tables match message is generated
+Scenario: Tables do not match
+Given an expected table
+| date_column | integer_column |
+| 2019-02-02  | 1234567890     |
+| 2019-02-03  | 23456789012345 |
+
+And an actual table
+| date_column | integer_column |
+| 2019-02-02  | 12345678901     |
+| 2019-02-03  | 23456789012345 |
+
+When the tables are compared
+
+Then tables do not match

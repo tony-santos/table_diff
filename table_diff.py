@@ -94,9 +94,11 @@ def compare_tables(expected_df, actual_df, column_list, sort_by=None):
 
     if expected == actual:
         print(f"\ntables match")
+        return True
     else:
         print(f"\nexpected vs actual:")
         sys.stdout.writelines(diff)
+        return False
 
 if __name__ == "__main__":
     # column_list = ['date', 'calories', 'sleep hours', 'gym']

@@ -80,6 +80,7 @@ def compare_tables(expected_df, actual_df, column_list, sort_by=None):
     Keyword Arguments:
         sort_by {[type]} -- list of columns to be used to sort tables before comparison. if no sort order is specified, all columns are used to sort the tables and column order is defined by column_list paramater
     """
+    # TODO change sort_by to list of tuples or a list of dictionaries so that order can be specified per column
     if sort_by is None:
         sort_by = column_list
     

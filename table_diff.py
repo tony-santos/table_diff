@@ -100,20 +100,62 @@ def compare_tables(expected_df, actual_df, column_list, sort_by=None):
         sys.stdout.writelines(diff)
         return False
 
-if __name__ == "__main__":
-    # column_list = ['date', 'calories', 'sleep hours', 'gym']
-    # column_list = ['gym', 'date', 'calories', 'sleep_hours']
-    # df1 = pd.DataFrame()
-    # df1['date'] = ['2016-04-01', '2016-04-02', '2016-04-03', '2016-04-02']
-    # df1['calories'] = [2200, 2100, 1500, 2100]
-    # df1['sleep_hours'] = [2200, 2100, 1500, 2200]
-    # df1['gym'] = [True, False, False, True]
+def compare_dataframes_as_tables(expected_df, actual_df, column_list, sort_by=None, sort_by_order=None):
+    """compares two tables and displays the results
+    
+    converts two pandas dataframes to text tables and then compares the tables as lists of strings using difflib
+    Arguments:
+        expected_df {[type]} -- dataframe containing the expected results
+        actual_df {[type]} -- dataframe containing the actual results
+        column_list {[type]} -- list of columns to be used to compare the two tables. all columns in column_list must be present in both tables
+    
+    Keyword Arguments:
+        sort_by {[type]} -- list of columns to be used to sort tables before comparison. if no sort order is specified, all columns are used to sort the tables and column order is defined by column_list paramater
+    """
+    # TODO change sort_by to list of tuples with column and order, or add order list so that order can be specified per column
+    print(f"sort_by: {sort_by}")
+    if sort_by is None:
+        sort_by = column_list
+        print(sort_by)
+    
+    if sort_by_order is None:
+        sort_by_order = [True] * len(column_list) # order is assumed to be ascending
+    else:
+        sort_by_order = [(order.lower()=='ascending') for order in sort_by_order]
+    print(f"sort_by_order: {sort_by_order}")
+    
+    
+    column_widths = get_column_widths(expected_df, actual_df, column_list)
+    expected = convert_df_to_table(expected_df.sort_values(by=sort_by, ascending=sort_by_order), column_list, column_widths, delimiter='|')
+    actual = convert_df_to_table(actual_df.sort_values(by=sort_by, ascending=sort_by_order), column_list, column_widths, delimiter='|')
+    diff = difflib.ndiff(expected, actual)
 
-    # df2 = pd.DataFrame()
-    # df2['date'] = ['2016-04-01', '2016-04-02', '2016-04-03', '2016-04-02']
-    # df2['calories'] = [2200, 2200, 1500, 1500]
-    # df2['sleep_hours'] = [2200, 2100, 1600, 1500]
-    # df2['gym'] = [True, True, False, True]
+    print_table(table=expected, label="expected")
+    print_table(table=actual, label="actual")
+
+    if expected == actual:
+        print(f"\ntables match")
+        return True
+    else:
+        print(f"\nexpected vs actual:")
+        sys.stdout.writelines(diff)
+        return False
+
+if __name__ == "__main__":
+    column_list = ['date', 'calories', 'sleep hours', 'gym']
+    column_list = ['date', 'sleep_hours', 'gym', 'calories']
+    order_list = ['ascending', 'descending', 'ascending', 'descending']
+    df1 = pd.DataFrame()
+    df1['date'] = ['2016-04-01', '2016-04-02', '2016-04-03', '2016-04-02']
+    df1['calories'] = [2200, 2100, 1500, 2100]
+    df1['sleep_hours'] = [2200, 2100, 1500, 2200]
+    df1['gym'] = [True, False, False, True]
+
+    df2 = pd.DataFrame()
+    df2['date'] = ['2016-04-01', '2016-04-02', '2016-04-03', '2016-04-02']
+    df2['calories'] = [2200, 2200, 1500, 1500]
+    df2['sleep_hours'] = [2200, 2100, 1600, 1500]
+    df2['gym'] = [True, True, False, True]
 
     # df3 = pd.DataFrame()
     # df3['date'] = ['2016-04-01', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03', '2016-04-02', '2016-04-03']
@@ -141,11 +183,12 @@ if __name__ == "__main__":
     # compare_tables(df5, df3, column_list, ['date', 'gym'])
     # # compare_tables(df1, df1, column_list, ['sleep_hours', 'calories' ])
 
-    df8 = pd.DataFrame()
-    df8['date_column'] = ['2016-04-01']
+    # df8 = pd.DataFrame()
+    # df8['date_column'] = ['2016-04-01']
 
-    df9 = pd.DataFrame()
-    df9['date_column'] = ['2016-04-02']
+    # df9 = pd.DataFrame()
+    # df9['date_column'] = ['2016-04-02']
 
-    compare_tables(df8, df9, ['date_column'], ['date_column'])
+    # compare_tables(df8, df9, ['date_column'], ['date_column'])
+    compare_dataframes_as_tables(df1, df2, column_list, column_list, order_list)
     

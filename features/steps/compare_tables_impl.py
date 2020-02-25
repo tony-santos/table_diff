@@ -33,7 +33,7 @@ def actual(context):
 
 @when(u'the tables are compared')
 def compared(context):
-    context.tables_match = td.compare_tables(context.expected, context.actual, context.column_list, context.column_list)
+    context.tables_match = td.compare_dataframes_as_tables(context.expected, context.actual, context.column_list, context.column_list)
 
 @then(u'tables match')
 def compare_tables(context):

@@ -3,6 +3,7 @@ import sys
 import pandas as pd
 import pprint
 
+
 def get_longest_entry(df_column):
     """return length of longest entry in a data frame column
 
@@ -14,6 +15,7 @@ def get_longest_entry(df_column):
         [int] -- integer containing length of longest entry (after conversion to string)
     """
     return max(df_column.astype(str).apply(len))
+
 
 def get_column_widths(df1, df2, column_list):
     """calculate column widths for a text table to be used by difflib for comparison
@@ -63,42 +65,45 @@ def convert_df_to_table(df, column_list, column_widths, delimiter='|'):
 
     return table
 
+
 def print_table(table, label):
     print(f"\n{label}:")
     for row in table:
         print(f"  {row.rstrip()}")
 
-def compare_tables(expected_df, actual_df, column_list, sort_by=None):
-    """compares two tables and displays the results
-    
-    converts two pandas dataframes to text tables and then compares the tables as lists of strings using difflib
-    Arguments:
-        expected_df {[type]} -- dataframe containing the expected results
-        actual_df {[type]} -- dataframe containing the actual results
-        column_list {[type]} -- list of columns to be used to compare the two tables. all columns in column_list must be present in both tables
-    
-    Keyword Arguments:
-        sort_by {[type]} -- list of columns to be used to sort tables before comparison. if no sort order is specified, all columns are used to sort the tables and column order is defined by column_list paramater
-    """
-    # TODO change sort_by to list of tuples or a list of dictionaries so that order can be specified per column
-    if sort_by is None:
-        sort_by = column_list
-    
-    column_widths = get_column_widths(expected_df, actual_df, column_list)
-    expected = convert_df_to_table(expected_df.sort_values(by=sort_by), column_list, column_widths, delimiter='|')
-    actual = convert_df_to_table(actual_df.sort_values(by=sort_by), column_list, column_widths, delimiter='|')
-    diff = difflib.ndiff(expected, actual)
 
-    print_table(table=expected, label="expected")
-    print_table(table=actual, label="actual")
+# TODO remove since replaced by compare_dataframes_as_tables
+# def compare_tables(expected_df, actual_df, column_list, sort_by=None):
+#     """compares two tables and displays the results
+    
+#     converts two pandas dataframes to text tables and then compares the tables as lists of strings using difflib
+#     Arguments:
+#         expected_df {[type]} -- dataframe containing the expected results
+#         actual_df {[type]} -- dataframe containing the actual results
+#         column_list {[type]} -- list of columns to be used to compare the two tables. all columns in column_list must be present in both tables
+    
+#     Keyword Arguments:
+#         sort_by {[type]} -- list of columns to be used to sort tables before comparison. if no sort order is specified, all columns are used to sort the tables and column order is defined by column_list paramater
+#     """
+#     if sort_by is None:
+#         sort_by = column_list
+    
+#     column_widths = get_column_widths(expected_df, actual_df, column_list)
+#     expected = convert_df_to_table(expected_df.sort_values(by=sort_by), column_list, column_widths, delimiter='|')
+#     actual = convert_df_to_table(actual_df.sort_values(by=sort_by), column_list, column_widths, delimiter='|')
+#     diff = difflib.ndiff(expected, actual)
 
-    if expected == actual:
-        print(f"\ntables match")
-        return True
-    else:
-        print(f"\nexpected vs actual:")
-        sys.stdout.writelines(diff)
-        return False
+#     print_table(table=expected, label="expected")
+#     print_table(table=actual, label="actual")
+
+#     if expected == actual:
+#         print(f"\ntables match")
+#         return True
+#     else:
+#         print(f"\nexpected vs actual:")
+#         sys.stdout.writelines(diff)
+#         return False
+
 
 def compare_dataframes_as_tables(expected_df, actual_df, column_list, sort_by=None, sort_by_order=None):
     """compares two tables and displays the results
@@ -112,7 +117,6 @@ def compare_dataframes_as_tables(expected_df, actual_df, column_list, sort_by=No
     Keyword Arguments:
         sort_by {[type]} -- list of columns to be used to sort tables before comparison. if no sort order is specified, all columns are used to sort the tables and column order is defined by column_list paramater
     """
-    # TODO change sort_by to list of tuples with column and order, or add order list so that order can be specified per column
     print(f"sort_by: {sort_by}")
     if sort_by is None:
         sort_by = column_list
@@ -124,7 +128,8 @@ def compare_dataframes_as_tables(expected_df, actual_df, column_list, sort_by=No
         sort_by_order = [(order.lower()=='ascending') for order in sort_by_order]
     print(f"sort_by_order: {sort_by_order}")
     
-    
+    expected_df.fillna(' ', inplace=True)
+    actual_df.fillna(' ', inplace=True)
     column_widths = get_column_widths(expected_df, actual_df, column_list)
     expected = convert_df_to_table(expected_df.sort_values(by=sort_by, ascending=sort_by_order), column_list, column_widths, delimiter='|')
     actual = convert_df_to_table(actual_df.sort_values(by=sort_by, ascending=sort_by_order), column_list, column_widths, delimiter='|')
@@ -140,6 +145,7 @@ def compare_dataframes_as_tables(expected_df, actual_df, column_list, sort_by=No
         print(f"\nexpected vs actual:")
         sys.stdout.writelines(diff)
         return False
+
 
 if __name__ == "__main__":
     column_list = ['date', 'calories', 'sleep hours', 'gym']

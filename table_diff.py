@@ -117,6 +117,14 @@ def compare_dataframes_as_tables(expected_df, actual_df, column_list, sort_by=No
     Keyword Arguments:
         sort_by {[type]} -- list of columns to be used to sort tables before comparison. if no sort order is specified, all columns are used to sort the tables and column order is defined by column_list paramater
     """
+    if check_for_columns(expected_df, actual_df, column_list) == False:
+        msg = f"column in columns to compare missing:"
+        print(msg)
+        return False
+
+    expected_df = expected_df.fillna(' ', inplace=False)
+    actual_df = actual_df.fillna(' ', inplace=False)
+
     print(f"sort_by: {sort_by}")
     if sort_by is None:
         sort_by = column_list
@@ -145,6 +153,24 @@ def compare_dataframes_as_tables(expected_df, actual_df, column_list, sort_by=No
         print(f"\nexpected vs actual:")
         sys.stdout.writelines(diff)
         return False
+
+
+def check_for_columns(expected_df, actual_df, column_list):
+    all_columns_found = True
+    for column in column_list:
+        # if column not in expected_df.columns.values:
+        if column not in list(expected_df):
+            msg = f"column {column} is missing from expected_df"
+            #logging.info(msg)
+            print(msg)
+            all_columns_found = False
+        if column not in actual_df.columns.values:
+            msg = f"column {column} is missing from actual_df"
+            print(msg)
+            #logging.info(msg)
+            all_columns_found = False
+
+    return all_columns_found
 
 
 if __name__ == "__main__":
